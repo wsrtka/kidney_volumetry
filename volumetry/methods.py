@@ -5,6 +5,7 @@ import SimpleITK as sitk
 
 from skimage.feature import canny
 from skimage.transform import hough_ellipse
+from skimage.draw import ellipse_perimeter
 
 
 def voxels_volume(sitk_image, seg_slices):
@@ -30,9 +31,9 @@ def voxels_volume(sitk_image, seg_slices):
 def ellipsoid_method(max_seg, first_idx, last_idx):
     edges = canny(max_seg)
 
-    ellipses = hough_ellipse(egdes, min_size=35)
-    result.sort(order='accumulator')
-    param = list(result[-1])
+    ellipses = hough_ellipse(edges, min_size=35)
+    ellipses.sort(order='accumulator')
+    param = list(ellipses[-1])
 
     yc, xc, a, b = [int(round(x)) for x in param[1:5]]
     orientation = param[5]
