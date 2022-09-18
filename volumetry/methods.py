@@ -8,7 +8,7 @@ from skimage.transform import hough_ellipse
 from skimage.draw import ellipse_perimeter
 
 
-def voxels_volume(sitk_image, seg_slices):
+def voxels_volume(sitk_image, seg_slices, seg_val=1):
     voxels = 0
     voxel_volume = 1
 
@@ -21,7 +21,7 @@ def voxels_volume(sitk_image, seg_slices):
         val_dict = dict(zip(values, counts))
         
         try:
-            voxels +=  val_dict[1]
+            voxels +=  val_dict[seg_val]
         except KeyError:
             pass
     

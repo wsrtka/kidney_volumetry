@@ -11,14 +11,14 @@ def divide_image(image):
     right_part = arr[:,:,half:]
     return left_part, right_part
 
-def find_kidney_slices(segmentation):
+def find_kidney_slices(segmentation, seg_val=1):
     max_idx = None
     first_idx = segmentation.shape[2]
     last_idx = 0
     max_counts = 0
 
     for idx, seg_slice in enumerate(segmentation):
-        mask = seg_slice == 1
+        mask = seg_slice == seg_val
         _, counts = np.unique(mask, return_counts=True)
         if len(counts) > 1:
             if counts[1] > max_counts:
